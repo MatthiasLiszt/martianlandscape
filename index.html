@@ -1,0 +1,32 @@
+<html>
+<title>provisoric level view of martian landscape</title>
+<style>
+#levelframe{
+ border: 3px solid black;
+ width: 320px;
+ height: 320px;
+}
+body{
+ margin: 32px;
+}
+</style>
+<script src="martianlandscape.js"></script>
+<body>
+<br></br>
+<h3>screen <div id="screennumber"></div></h3>
+<div id="levelframe">
+<svg id="level" width="320" height="320"></svg>
+</div>
+<p><button id="viewleft">&lt;&lt;</button>
+<button id="viewright">&gt;&gt;</button>
+</p>
+<script>
+var Show=document.getElementById('levelframe');
+var hill;
+
+hill=makeMountain('small',320);
+Show.innerHTML="<svg>"+hill+"</svg>";
+console.log("hill "+hill);
+</script>
+</body>
+</html>
