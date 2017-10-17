@@ -10,26 +10,31 @@
 body{
  margin: 32px;
 }
+.noborder{
+ border: none;
+}
 </style>
 <script src="martianlandscape.js"></script>
 <body>
 <br></br>
-<h3>screen <div id="screennumber"></div></h3>
+<h3><button class="noborder"><strong>screen</strong> </button><button id="screennumber" class="noborder"></button></h3>
 <div id="levelframe">
 <svg id="level1" width="320" height="320" display="none"></svg>
 <svg id="level2" width="320" height="320" display="none"></svg>
 <svg id="level3" width="320" height="320" display="none"></svg>
-
+<svg id="level4" width="320" height="320" display="none"></svg>
 
 </div>
-<p><button id="viewleft" onclick="onViewLeft()">&lt;&lt;</button>
-<button id="viewright" onclick="onViewRight()">&gt;&gt;</button>
+<p><button id="viewleft" onclick="onViewLeft(4)">&lt;&lt;</button>
+<button id="viewright" onclick="onViewRight(4)">&gt;&gt;</button>
 </p>
 <script>
 var curScreen=1;
+var ScreenNumber=document.getElementById('screennumber');
 var Level1=document.getElementById('level1');
 var Level2=document.getElementById('level2');
 var Level3=document.getElementById('level3');
+var Level4=document.getElementById('level4');
 var hill0,hill1,hill2,flat1;
 var moun0,moun1,hmoun;
 
@@ -41,38 +46,60 @@ flat1=makeFlatLand('green','small',320,1);
 Level2.innerHTML=hill0+flat1+hill2;
 
 Level1.innerHTML=hill0+hill1+hill2;
-Level3.style.display="inline";
+
 
 moun0=makeMountain('medium',320,0);
 moun1=makeMountain('medium',320,1);
 hmoun=makeMountain('large',320,0);
 
-//Level3.innerHTML=moun0+moun1;
+Level4.innerHTML=moun0+moun1;
 Level3.innerHTML=hmoun;
+Level1.style.display="inline";
 
-function onViewLeft(){
+setInterval(function(){ScreenNumber.textContent=curScreen;},100);
+
+function allLevelInvisible(maxLevel){
+  var name=[];
+  var i=0;
+  console.log("allLevelInvisible before for loop");
+  for(i=0;i<maxLevel;++i) 
+   {name.push('level'+(i+1));
+    console.log("allLevelInvisible "+name[i]);
+    document.getElementById(name[i]).style.display="none";
+   } 
+}
+
+function makeLevelVisible(l){
+ var name='level'+l;
+ var level=document.getElementById(name);
+ 
+ console.log("makeLevelVisible "+name);
+ level.style.display="inline";
+}
+
+function onViewLeft(maxLevel){
  if(curScreen>1){
   curScreen-=1;
-  Level1.style.display="none";
-  Level2.style.display="inline";
+  allLevelInvisible(maxLevel);
+  makeLevelVisible(curScreen);
  }
  else
-  {curScreen=3;
-   Level2.style.display="none";
-   Level1.style.display="inline";
+  {curScreen=maxLevel;
+   allLevelInvisible(maxLevel); 
+   makeLevelVisible(curScreen); 
   }
 }
 
-function onViewRight(){
- if(curScreen<3){
+function onViewRight(maxLevel){
+ if(curScreen<maxLevel){
   curScreen+=1;
-  Level1.style.display="none";
-  Level2.style.display="inline";
+  allLevelInvisible(maxLevel);
+  makeLevelVisible(curScreen); 
  }
  else
   {curScreen=1;
-   Level2.style.display="none";
-   Level1.style.display="inline";
+   allLevelInvisible(maxLevel);
+   makeLevelVisible(curScreen);
   }
 }
 
