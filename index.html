@@ -1,4 +1,5 @@
 <html>
+<meta charset='utf-8'>
 <title>provisoric level view of martian landscape</title>
 <style>
 #levelframe{
@@ -15,18 +16,66 @@ body{
 <br></br>
 <h3>screen <div id="screennumber"></div></h3>
 <div id="levelframe">
-<svg id="level" width="320" height="320"></svg>
+<svg id="level1" width="320" height="320" display="none"></svg>
+<svg id="level2" width="320" height="320" display="none"></svg>
+<svg id="level3" width="320" height="320" display="none"></svg>
+
+
 </div>
-<p><button id="viewleft">&lt;&lt;</button>
-<button id="viewright">&gt;&gt;</button>
+<p><button id="viewleft" onclick="onViewLeft()">&lt;&lt;</button>
+<button id="viewright" onclick="onViewRight()">&gt;&gt;</button>
 </p>
 <script>
-var Show=document.getElementById('levelframe');
-var hill;
+var curScreen=1;
+var Level1=document.getElementById('level1');
+var Level2=document.getElementById('level2');
+var Level3=document.getElementById('level3');
+var hill0,hill1,hill2,flat1;
+var moun0,moun1,hmoun;
 
-hill=makeMountain('small',320);
-Show.innerHTML="<svg>"+hill+"</svg>";
-console.log("hill "+hill);
+hill0=makeMountain('small',320,0);
+hill1=makeMountain('small',320,1);
+hill2=makeMountain('small',320,2);
+
+flat1=makeFlatLand('green','small',320,1);
+Level2.innerHTML=hill0+flat1+hill2;
+
+Level1.innerHTML=hill0+hill1+hill2;
+Level3.style.display="inline";
+
+moun0=makeMountain('medium',320,0);
+moun1=makeMountain('medium',320,1);
+hmoun=makeMountain('large',320,0);
+
+//Level3.innerHTML=moun0+moun1;
+Level3.innerHTML=hmoun;
+
+function onViewLeft(){
+ if(curScreen>1){
+  curScreen-=1;
+  Level1.style.display="none";
+  Level2.style.display="inline";
+ }
+ else
+  {curScreen=3;
+   Level2.style.display="none";
+   Level1.style.display="inline";
+  }
+}
+
+function onViewRight(){
+ if(curScreen<3){
+  curScreen+=1;
+  Level1.style.display="none";
+  Level2.style.display="inline";
+ }
+ else
+  {curScreen=1;
+   Level2.style.display="none";
+   Level1.style.display="inline";
+  }
+}
+
 </script>
 </body>
 </html>
