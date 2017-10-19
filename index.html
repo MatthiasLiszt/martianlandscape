@@ -23,10 +23,13 @@ body{
 <svg id="level2" width="320" height="320" display="none"></svg>
 <svg id="level3" width="320" height="320" display="none"></svg>
 <svg id="level4" width="320" height="320" display="none"></svg>
+<svg id="level5" width="320" height="320" display="none"></svg>
+<svg id="level6" width="320" height="320" display="none"></svg>
+<svg id="level7" width="320" height="320" display="none"></svg>
 
 </div>
-<p><button id="viewleft" onclick="onViewLeft(4)">&lt;&lt;</button>
-<button id="viewright" onclick="onViewRight(4)">&gt;&gt;</button>
+<p><button id="viewleft" onclick="onViewLeft(7)">&lt;&lt;</button>
+<button id="viewright" onclick="onViewRight(7)">&gt;&gt;</button>
 </p>
 <script>
 var curScreen=1;
@@ -35,9 +38,13 @@ var Level1=document.getElementById('level1');
 var Level2=document.getElementById('level2');
 var Level3=document.getElementById('level3');
 var Level4=document.getElementById('level4');
+var Level5=document.getElementById('level5');
+var Level6=document.getElementById('level6');
+var Level7=document.getElementById('level7');
 var hill0,hill1,hill2,flat1;
 var moun0,moun1,hmoun;
 
+/*
 hill0=makeMountain('small',320,0);
 hill1=makeMountain('small',320,1);
 hill2=makeMountain('small',320,2);
@@ -55,8 +62,27 @@ hmoun=makeMountain('large',320,0);
 Level4.innerHTML=moun0+moun1;
 Level3.innerHTML=hmoun;
 Level1.style.display="inline";
+*/
 
-setInterval(function(){ScreenNumber.textContent=curScreen;},100);
+var output=martianlandscape(7,320);
+console.log("Martian Landscape "+output);
+setAllLevels(7,output);
+Level1.style.display="inline";
+
+setInterval(function(){ScreenNumber.textContent=curScreen;},10);
+
+function setAllLevels(maxLevel,source){
+  var name=[];
+  var i=0;
+  var Levels=JSON.parse(source);
+  
+  console.log("allLevelInvisible before for loop");
+  for(i=0;i<maxLevel;++i) 
+   {name.push('level'+(i+1));
+    console.log("set "+name[i]);
+    document.getElementById(name[i]).innerHTML=Levels[i];
+   } 
+}
 
 function allLevelInvisible(maxLevel){
   var name=[];

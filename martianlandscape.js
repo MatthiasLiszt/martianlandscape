@@ -2,18 +2,51 @@
 function martianlandscape(screens,pixelSize){
  var landingSite=Math.floor(Math.random()*screens);
  var Screen=[];
+ var curScreen;
  
- for(var curScreen=0;curScreen<screens;++curScreen)   
+ for(curScreen=0;curScreen<screens;++curScreen)   
   {if(curScreen!=landingSite)
-    {var landType=Math.floor(Math.random()*5);
-
+    {var landType=Math.floor(Math.random()*4);
+     
+     console.log("landType "+landType);
+     
+     switch(landType){case 0:
+                           var hill0=makeMountain('small',pixelSize,0);
+                           var hill1=makeMountain('small',pixelSize,1);
+                           var hill2=makeMountain('small',pixelSize,2);
+                           Screen.push(hill0+hill1+hill2);
+                           console.log("case 0 "+hill0+hill1+hill2);
+                           break;
+                      case 1: 
+                           var flat1=makeFlatLand('brown','small',pixelSize,1); 
+                           var hill0=makeMountain('small',pixelSize,0);
+                           var hill2=makeMountain('small',pixelSize,2);  
+                           Screen.push(hill0+flat1+hill2);
+                           console.log("case 1 "+hill0+flat1+hill2); 
+                           break;
+                      case 2:
+                           var moun0=makeMountain('medium',pixelSize,0);
+                           var moun1=makeMountain('medium',pixelSize,1);        
+                           Screen.push(moun0+moun1);
+                            console.log("case 2 "+moun0+moun1);
+                           break;
+                      case 3:
+                           var hmoun=makeMountain('large',pixelSize,0);     
+                           Screen.push(hmoun);
+                           console.log("case 3 "+hmoun);
+                           break; 
+                     } 
       
     }
    else
-    {
+    {var flat1=makeFlatLand('green','small',pixelSize,1); 
+     var hill0=makeMountain('small',pixelSize,0);
+     var hill2=makeMountain('small',pixelSize,2);  
+     Screen.push(hill0+flat1+hill2);
     }
   }
   
+ return JSON.stringify(Screen); 
 }
 
 function makeMountain(size,screenSize,offset)
