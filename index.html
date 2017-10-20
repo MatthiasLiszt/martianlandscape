@@ -68,6 +68,7 @@ var output=martianlandscape(7,320);
 console.log("Martian Landscape "+output);
 setAllLevels(7,output);
 Level1.style.display="inline";
+console.log("whole JSON "+output);
 
 setInterval(function(){ScreenNumber.textContent=curScreen;},10);
 
@@ -80,7 +81,7 @@ function setAllLevels(maxLevel,source){
   for(i=0;i<maxLevel;++i) 
    {name.push('level'+(i+1));
     console.log("set "+name[i]);
-    document.getElementById(name[i]).innerHTML=Levels[i];
+    document.getElementById(name[i]).innerHTML=Levels.level[i];
    } 
 }
 

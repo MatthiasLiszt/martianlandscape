@@ -46,7 +46,9 @@ function martianlandscape(screens,pixelSize){
     }
   }
   
- return JSON.stringify(Screen); 
+ var wholeJSON={"level": Screen, "landing": landingSite+1 };
+  
+ return JSON.stringify(wholeJSON); 
 }
 
 function makeMountain(size,screenSize,offset)
